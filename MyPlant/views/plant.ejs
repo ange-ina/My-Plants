@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= plant.name %> </title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styletest.css">
+</head>
+
+<body>
+    <div class="blurr hidden" onclick="showForm()"></div>
+    <div class="blurr2 hidden" onclick="showInfo()"></div>
+    <section id="plant">
+        <article class="plantHeaderFlex">
+            <div class="empty"></div>
+            <span onclick="showInfo()" class="question">?</span>
+        </article>
+        <img src=<%= plant.picture %> alt="">
+        <h3><%= plant.name %> </h3>
+        <h4><%= plant.species %> </h4>
+        <div class="plantFlex">
+            <h4>Schedule:</h4>
+            <div class="schedule">
+                <% plant.schedule.forEach(day => { %>
+                <p><%= day %> </p>
+                <% }) %>
+            </div>
+        </div>
+        <a href="/deletePlant/<%= plant._id %> " class="mint">Delete</a>
+        <a href="#" class="mint" onclick="showForm()">Edit</a>
+    </section>
+    <section id="info" class="hidden">
+        <div class="formFlex">
+            <h1>Info</h1>
+            <h6 onclick="showInfo()">x</h6>
+        </div>
+        <p>Look at that beautiful plant! Here you can edit or delete it, in case you let it die you monster!</p>
+        <br>
+        <p>Remember: The selected days on your watering schedule will be shown in darker green. Feel free to edit it
+            though</p>
+    </section>
+    <section id="new" class="hidden">
+        <form action="/editPlant/<%= plant._id %>" method="POST">
+            <div class="formFlex">
+                <h1>Edit Plant</h1>
+                <h6 onclick="showForm()">x</h6>
+            </div>
+            <input type="text" name="name" id="name" value=<%= plant.name %>>
+            <!-- <input type="text" name="species" id="species" value=<%= plant.species %>> -->
+            <select id="species" name="species">
+                <option value="species">Species</option>
+                <option value="roomplant">Roomplant</option>
+                <option value="bamboo">Bamboo</option>
+                <option value="perennials">Perennials</option>
+                <option value="shrubs">Shrubs</option>
+                <option value="hedges">Hedges</option>
+                <option value="other">Other</option>
+            </select>
+
+            <input type="text" name="picture" id="formPicture" value=<%= plant.picture %>>
+            <p>Watering Schedule</p>
+            <div class="weekDays-selector">
+                <% if (plant.schedule.includes("Montag")) { %>
+                <input type="checkbox" name="schedule" id="weekday-mon" value="Montag" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-mon" value="Montag">
+                <% } %>
+                <label for="weekday-mon">M</label>
+                <% if (plant.schedule.includes("Dienstag")) { %>
+                <input type="checkbox" name="schedule" id="weekday-tue" value="Dienstag" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-tue" value="Dienstag">
+                <% } %>
+                <label for="weekday-tue">T</label>
+                <% if (plant.schedule.includes("Mittwoch")) { %>
+                <input type="checkbox" name="schedule" id="weekday-wed" value="Mittwoch" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-wed" value="Mittwoch">
+                <% } %>
+                <label for="weekday-wed">W</label>
+                <% if (plant.schedule.includes("Donnerstag")) { %>
+                <input type="checkbox" name="schedule" id="weekday-thu" value="Donnerstag" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-thu" value="Donnerstag">
+                <% } %>
+                <label for="weekday-thu">T</label>
+                <% if (plant.schedule.includes("Freitag")) { %>
+                <input type="checkbox" name="schedule" id="weekday-fri" value="Freitag" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-fri" value="Freitag">
+                <% } %>
+                <label for="weekday-fri">F</label>
+                <% if (plant.schedule.includes("Samstag")) { %>
+                <input type="checkbox" name="schedule" id="weekday-sat" value="Samstag" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-sat" value="Samstag">
+                <% } %>
+                <label for="weekday-sat">S</label>
+                <% if (plant.schedule.includes("Sonntag")) { %>
+                <input type="checkbox" name="schedule" id="weekday-sun" value="Sonntag" checked>
+                <% } else { %>
+                <input type="checkbox" name="schedule" id="weekday-sun" value="Sonntag">
+                <% } %>
+                <label for="weekday-sun">S</label>
+            </div>
+            <input type="submit" value="Edit">
+        </form>
+    </section>
+    <div class="navigation"><%-include('./partials/navigation')%></div>
+    <script>
+        const blurr = document.getElementsByClassName('blurr')
+        const blurr2 = document.getElementsByClassName('blurr2')
+        const form = document.getElementById('new')
+        function showForm() {
+            form.classList.toggle("hidden")
+            for (i = 0; i < blurr.length; i++) {
+                blurr[i].classList.toggle("hidden")
+            }
+        }
+        function showInfo() {
+            info.classList.toggle("hidden")
+            for (i = 0; i < blurr2.length; i++) {
+                blurr2[i].classList.toggle("hidden")
+            }
+        }
+    </script>
+</body>
+
+</html>

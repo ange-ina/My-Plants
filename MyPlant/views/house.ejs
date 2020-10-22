@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/styletest.css">
+    <title>My Plant</title>
+</head>
+
+<body>
+    <div class="blurr hidden" onclick="showForm()"></div>
+    <section id="hero">
+        <p><%= today %></p>
+        <div class="formFlex">
+            <h1>My Plants</h1>
+            <span onclick="showForm()" class="question">?</span>
+        </div>
+        <% data.rooms.forEach(room => { %>
+        <div class="room">
+            <h3><%= room.name %> </h3>
+            <% data.plants.forEach(plant => { %>
+            <% if (plant.room === room.name && plant.schedule.includes(today) && plant.needsWater === true || plant.room === room.name && plant.automated === true && plant.needsWater === true) { %>
+            <a href="/waterPlant/<%= plant._id %> ">
+                <div class="plantCard">
+                    <img src=<%= plant.picture %> alt="">
+                    <p><%= plant.name %> </p>
+                </div>
+            </a>
+            <% } else if (plant.room === room.name && plant.schedule.includes(today) && plant.needsWater === false){%>
+            <div class="plantCard">
+                <div class="watered"></div>
+                <img src=<%= plant.picture %> alt="">
+                <p><%= plant.name %> </p>
+            </div>
+            <% } %>
+            <% }) %>
+        </div>
+        <% }) %>
+    </section>
+    <section id="new" class="hidden">
+        <div class="formFlex">
+            <h1>Info</h1>
+            <h6 onclick="showForm()">x</h6>
+        </div>
+        <p>This is your home page! It will list all the plants that need watering today.</p>
+        <br>
+        <p>Water your plants by clicking on them. Once watered they will turn <span class="blue">blue</span>! Make sure not to forget watering your plants in real life as well before clicking, or you're gonna have a bad time!</p>
+        <br>
+        <p>If this is your first time here everything will look very empty. Head over to your room menu by clicking the little house below!</p>
+    </section>
+    <div class="navigation"><%-include('./partials/navigation')%></div>
+</body>
+
+<script>
+    const blurr = document.getElementsByClassName('blurr')
+    const form = document.getElementById('new')
+    function showForm() {
+        form.classList.toggle("hidden")
+        for (i = 0; i < blurr.length; i++) {
+            blurr[i].classList.toggle("hidden")
+        }
+    }
+</script>
+
+</html>

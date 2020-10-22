@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/style.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <div id="profileCard">
+        <h1>Profile</h1>
+
+        <img id="bild" src=<%= user.picture %> alt="">
+        <div class="text">
+            <p><%= user.firstName %></p>
+            <p><%= user.lastName %></p>
+        </div>
+        <div class="icons">
+            <img src="/plantIconMint.svg" width="60px" alt="">
+            <p><%= user.totalPlants %> Plants</p>
+        </div>
+        <div class="days">
+            <img src="/kanneMint.svg" width="60px" alt="">
+            <p><%= user.daysSinceMiss %> Days</p>
+        </div>
+        <a href="/logout" class="mint">Logout</a>
+    </div>
+    <div class="navigation"><%-include('./partials/navigation')%></div>
+</body>
+
+</html>

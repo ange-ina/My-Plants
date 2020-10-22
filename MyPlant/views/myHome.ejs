@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/styletest.css">
+</head>
+
+<body>
+  <div class="blurr hidden" onclick="showForm()"></div>
+  <div class="blurr2 hidden" onclick="showInfo()"></div>
+  <article class="headerflex">
+    <div>
+      <h1>My Home</h1>
+    </div>
+    <span onclick="showInfo()" class="question">?</span>
+  </article>
+  <% data.rooms.forEach(room => { %>
+  <a href="/room/<%= room._id %> " class="homeRoom">
+    <div class="boxshadows">
+      <h3><%= room.name %></h3>
+      <p><%= room.plants %> plants</p>
+    </div>
+  </a>
+  <% }) %>
+  <button class="buttonRoom">
+    <img src="icons8-pluss.svg" onclick="showForm()" alt="" />
+  </button>
+  <section id="info" class="hidden">
+    <div class="formFlex">
+      <h1>Info</h1>
+      <h6 onclick="showInfo()">x</h6>
+    </div>
+    <p>This screen displays all rooms in your house.</p>
+    <br>
+    <p>You can click on each individual room to see the plants you have in that specific room.</p>
+    <br>
+    <p>If it's still empty try adding your first room by clicking on the plus sign.</p>
+  </section>
+  <section id="new" class="hidden">
+      <div class="NewRoomFlex">
+        <h1>Add Room</h1>
+        <button class="buttonRoom">
+          <img src="icons8x.png" alt="" onclick="showForm()"/>
+        </button>
+      </div>
+      <form action="/newRoom" method="POST">
+        <input type="text" name="name" id="name" placeholder="Room Name" />
+        <br />
+        <input type="submit" value="Add" />
+      </form>
+    </section>
+  <script>
+    const blurr = document.getElementsByClassName('blurr')
+    const blurr2 = document.getElementsByClassName('blurr2')
+    const form = document.getElementById('new')
+    const info = document.getElementById('info')
+    function showForm() {
+      form.classList.toggle("hidden")
+      for (i = 0; i < blurr.length; i++) {
+        blurr[i].classList.toggle("hidden")
+      }
+    }
+    function showInfo() {
+      info.classList.toggle("hidden")
+      for (i = 0; i < blurr2.length; i++) {
+        blurr2[i].classList.toggle("hidden")
+      }
+    }
+  </script>
+
+    <div class="navigation"><%-include('./partials/navigation')%></div>
+  </body>
+
+</html>
